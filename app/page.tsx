@@ -11,7 +11,7 @@ export default function Home() {
   const [currentScreen, setCurrentScreen] = useState(1)
 
   return (
-    <main className="min-h-screen w-full">
+    <main className="min-h-screen w-full bg-gradient-to-b from-purple-900 to-black text-white flex items-center justify-center">
       <AnimatePresence mode="wait">
         {currentScreen === 1 && (
           <Screen1 key="screen1" onNext={() => setCurrentScreen(2)} />

@@ -1,15 +1,31 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
+
+interface Lantern {
+  left: string
+  animation: string
+  animationDelay: string
+}
 
 interface Screen3Props {
   onNext: () => void
 }
 
 export default function Screen3({ onNext }: Screen3Props) {
-  const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 })
+  const [lanterns, setLanterns] = useState<Lantern[]>([])
   const noButtonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    setLanterns(
+      [...Array(12)].map(() => ({
+        left: `${Math.random() * 100}%`,
+        animation: `lantern-float ${10 + Math.random() * 10}s ease-in infinite`,
+        animationDelay: `${Math.random() * 5}s`,
+      }))
+    )
+  }, [])
 
   const moveNoButton = () => {
     const maxX = window.innerWidth - 150 // button width
@@ -18,6 +34,8 @@ export default function Screen3({ onNext }: Screen3Props) {
     const newY = Math.random() * maxY
     setNoButtonPos({ x: newX, y: newY })
   }
+
+  const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 })
 
   return (
     <motion.div
@@ -29,15 +47,15 @@ export default function Screen3({ onNext }: Screen3Props) {
     >
       {/* Floating lanterns */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(12)].map((_, i) => (
+        {lanterns.map((lantern, i) => (
           <div
             key={i}
             className="absolute"
             style={{
-              left: `${Math.random() * 100}%`,
+              left: lantern.left,
               bottom: '-100px',
-              animation: `lantern-float ${10 + Math.random() * 10}s ease-in infinite`,
-              animationDelay: `${Math.random() * 5}s`,
+              animation: lantern.animation,
+              animationDelay: lantern.animationDelay,
               '--drift': `${(Math.random() - 0.5) * 100}px`,
             } as React.CSSProperties}
           >
@@ -92,16 +110,6 @@ export default function Screen3({ onNext }: Screen3Props) {
           transition={{ delay: 1, type: 'spring' }}
           className="w-full max-w-3xl mb-8 rounded-lg overflow-hidden shadow-2xl"
         >
-          <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-            <iframe
-              className="absolute top-0 left-0 w-full h-full"
-              src="https://www.youtube.com/embed/tUYM5WNdNr8?si=KqG6-YDxYLrjJQtc"
-              title="Tiempo Aquel - Rapunzel (Enredados)"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
         </motion.div>
 
         {/* Buttons */}
