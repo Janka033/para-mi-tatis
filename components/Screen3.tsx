@@ -1,31 +1,15 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef } from 'react'
-
-interface Lantern {
-  left: string
-  animation: string
-  animationDelay: string
-}
+import { useState, useRef } from 'react'
 
 interface Screen3Props {
   onNext: () => void
 }
 
 export default function Screen3({ onNext }: Screen3Props) {
-  const [lanterns, setLanterns] = useState<Lantern[]>([])
+  const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 })
   const noButtonRef = useRef<HTMLButtonElement>(null)
-
-  useEffect(() => {
-    setLanterns(
-      [...Array(12)].map(() => ({
-        left: `${Math.random() * 100}%`,
-        animation: `lantern-float ${10 + Math.random() * 10}s ease-in infinite`,
-        animationDelay: `${Math.random() * 5}s`,
-      }))
-    )
-  }, [])
 
   const moveNoButton = () => {
     const maxX = window.innerWidth - 150 // button width
@@ -47,7 +31,7 @@ export default function Screen3({ onNext }: Screen3Props) {
     >
       {/* Floating lanterns */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {lanterns.map((lantern, i) => (
+        {[...Array(12)].map((_, i) => (
           <div
             key={i}
             className="absolute"
