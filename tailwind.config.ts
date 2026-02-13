@@ -17,8 +17,8 @@ const config: Config = {
         'dark-night': '#0D0221',
       },
       fontFamily: {
-        'dancing': ['"Dancing Script"', 'cursive'],
-        'playfair': ['"Playfair Display"', 'serif'],
+        'dancing': ['"Dancing Script"', 'cursive', 'ui-serif', 'serif'],
+        'playfair': ['"Playfair Display"', 'serif', 'ui-serif', 'Georgia'],
       },
     },
   },

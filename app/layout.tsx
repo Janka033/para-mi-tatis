@@ -1,16 +1,5 @@
 import type { Metadata } from 'next'
-import { Dancing_Script, Playfair_Display } from 'next/font/google'
 import './globals.css'
-
-const dancing = Dancing_Script({ 
-  subsets: ['latin'],
-  variable: '--font-dancing',
-})
-
-const playfair = Playfair_Display({ 
-  subsets: ['latin'],
-  variable: '--font-playfair',
-})
 
 export const metadata: Metadata = {
   title: '💜 Para Mi Tatis 🏮',
@@ -24,7 +13,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={`${dancing.variable} ${playfair.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+      </head>
+      <body>
         {children}
       </body>
     </html>
