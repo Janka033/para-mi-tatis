@@ -1,15 +1,20 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 interface Screen3Props {
   onNext: () => void
 }
 
 export default function Screen3({ onNext }: Screen3Props) {
+  const [mounted, setMounted] = useState(false)
   const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 })
   const noButtonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const moveNoButton = () => {
     const maxX = window.innerWidth - 150 // button width
@@ -29,7 +34,7 @@ export default function Screen3({ onNext }: Screen3Props) {
     >
       {/* Floating lanterns */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(12)].map((_, i) => (
+        {mounted && [...Array(12)].map((_, i) => (
           <div
             key={i}
             className="absolute"
