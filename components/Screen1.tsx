@@ -1,12 +1,18 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 
 interface Screen1Props {
   onNext: () => void
 }
 
 export default function Screen1({ onNext }: Screen1Props) {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -17,7 +23,7 @@ export default function Screen1({ onNext }: Screen1Props) {
     >
       {/* Stars */}
       <div className="absolute inset-0">
-        {[...Array(50)].map((_, i) => (
+        {mounted && [...Array(50)].map((_, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
@@ -32,7 +38,7 @@ export default function Screen1({ onNext }: Screen1Props) {
 
       {/* Fireflies */}
       <div className="absolute inset-0">
-        {[...Array(15)].map((_, i) => (
+        {mounted && [...Array(15)].map((_, i) => (
           <div
             key={i}
             className="absolute w-2 h-2 bg-warm-gold rounded-full animate-pulse-glow animate-float"

@@ -1,8 +1,14 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 
 export default function Screen4() {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -13,7 +19,7 @@ export default function Screen4() {
     >
       {/* Falling lilies */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(20)].map((_, i) => (
+        {mounted && [...Array(20)].map((_, i) => (
           <div
             key={`lily-${i}`}
             className="absolute"
@@ -35,7 +41,7 @@ export default function Screen4() {
 
       {/* Rising lanterns */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {mounted && [...Array(8)].map((_, i) => (
           <div
             key={`lantern-${i}`}
             className="absolute"
@@ -71,7 +77,7 @@ export default function Screen4() {
 
       {/* Floating hearts */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(15)].map((_, i) => (
+        {mounted && [...Array(15)].map((_, i) => (
           <div
             key={`heart-${i}`}
             className="absolute text-4xl"
@@ -89,7 +95,7 @@ export default function Screen4() {
 
       {/* Golden sparkles */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {mounted && [...Array(30)].map((_, i) => (
           <div
             key={`sparkle-${i}`}
             className="absolute w-2 h-2 bg-warm-gold rounded-full animate-twinkle"
