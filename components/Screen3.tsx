@@ -8,7 +8,6 @@ interface Screen3Props {
 }
 
 export default function Screen3({ onNext }: Screen3Props) {
-  const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 })
   const noButtonRef = useRef<HTMLButtonElement>(null)
 
   const moveNoButton = () => {
@@ -31,47 +30,53 @@ export default function Screen3({ onNext }: Screen3Props) {
     >
       {/* Floating lanterns */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(12)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute"
-            style={{
-              left: lantern.left,
-              bottom: '-100px',
-              animation: lantern.animation,
-              animationDelay: lantern.animationDelay,
-              '--drift': `${(Math.random() - 0.5) * 100}px`,
-            } as React.CSSProperties}
-          >
-            <div className="relative">
-              {/* Lantern glow */}
-              <div className="absolute inset-0 bg-warm-gold rounded-full blur-xl opacity-60" style={{ width: '40px', height: '60px' }} />
-              {/* Lantern body */}
-              <svg width="40" height="60" viewBox="0 0 40 60">
-                <defs>
-                  <linearGradient id={`lanternGrad${i}`} x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style={{ stopColor: '#F1C40F', stopOpacity: 0.9 }} />
-                    <stop offset="50%" style={{ stopColor: '#F39C12', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: '#E67E22', stopOpacity: 0.9 }} />
-                  </linearGradient>
-                </defs>
-                {/* Top */}
-                <rect x="10" y="5" width="20" height="3" fill="#C0392B" />
-                {/* Body */}
-                <ellipse cx="20" cy="30" rx="12" ry="20" fill={`url(#lanternGrad${i})`} />
-                {/* Lines */}
-                <line x1="8" y1="15" x2="32" y2="15" stroke="#E67E22" strokeWidth="0.5" />
-                <line x1="8" y1="25" x2="32" y2="25" stroke="#E67E22" strokeWidth="0.5" />
-                <line x1="8" y1="35" x2="32" y2="35" stroke="#E67E22" strokeWidth="0.5" />
-                <line x1="8" y1="45" x2="32" y2="45" stroke="#E67E22" strokeWidth="0.5" />
-                {/* Bottom */}
-                <rect x="15" y="50" width="10" height="2" fill="#C0392B" />
-                {/* String */}
-                <line x1="20" y1="0" x2="20" y2="5" stroke="#8B4513" strokeWidth="1" />
-              </svg>
+        {[...Array(12)].map((_, i) => {
+          const left = `${Math.random() * 100}%`
+          const animation = `lantern-float ${10 + Math.random() * 10}s ease-in infinite`
+          const animationDelay = `${Math.random() * 5}s`
+          const drift = `${(Math.random() - 0.5) * 100}px`
+          return (
+            <div
+              key={i}
+              className="absolute"
+              style={{
+                left,
+                bottom: '-100px',
+                animation,
+                animationDelay,
+                '--drift': drift,
+              } as React.CSSProperties}
+            >
+              <div className="relative">
+                {/* Lantern glow */}
+                <div className="absolute inset-0 bg-warm-gold rounded-full blur-xl opacity-60" style={{ width: '40px', height: '60px' }} />
+                {/* Lantern body */}
+                <svg width="40" height="60" viewBox="0 0 40 60">
+                  <defs>
+                    <linearGradient id={`lanternGrad${i}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" style={{ stopColor: '#F1C40F', stopOpacity: 0.9 }} />
+                      <stop offset="50%" style={{ stopColor: '#F39C12', stopOpacity: 1 }} />
+                      <stop offset="100%" style={{ stopColor: '#E67E22', stopOpacity: 0.9 }} />
+                    </linearGradient>
+                  </defs>
+                  {/* Top */}
+                  <rect x="10" y="5" width="20" height="3" fill="#C0392B" />
+                  {/* Body */}
+                  <ellipse cx="20" cy="30" rx="12" ry="20" fill={`url(#lanternGrad${i})`} />
+                  {/* Lines */}
+                  <line x1="8" y1="15" x2="32" y2="15" stroke="#E67E22" strokeWidth="0.5" />
+                  <line x1="8" y1="25" x2="32" y2="25" stroke="#E67E22" strokeWidth="0.5" />
+                  <line x1="8" y1="35" x2="32" y2="35" stroke="#E67E22" strokeWidth="0.5" />
+                  <line x1="8" y1="45" x2="32" y2="45" stroke="#E67E22" strokeWidth="0.5" />
+                  {/* Bottom */}
+                  <rect x="15" y="50" width="10" height="2" fill="#C0392B" />
+                  {/* String */}
+                  <line x1="20" y1="0" x2="20" y2="5" stroke="#8B4513" strokeWidth="1" />
+                </svg>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Content */}
